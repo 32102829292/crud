@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Add New Employee</h2>
+<form method="POST">
+    <div class="mb-3">
+        <label>Employee's Full Name:</label>
+        <input type="text" name="name" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Membership Type:</label>
+        <input type="text" name="membership_type" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Rate:</label>
+        <input type="number" name="rate" class="form-control" required>
+    </div>
+    <div class="mb-3">
+        <label>Hours:</label>
+        <input type="number" name="hour" class="form-control" required>
+    </div>
+    <button type="submit" class="btn btn-success">Save</button>
+    <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-danger btn-sm">Cancel</a>
+</form>
+{% endblock %}

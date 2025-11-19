@@ -14,7 +14,13 @@ def role_required(*allowed_roles):
     def decorator(f):
         @wraps(f)
         def wrapper(*args, **kwargs):
+            print("SESSION:", session)  
+
             role = session.get("role")
+            if not role:
+                flash("You must log in first.", "warning")
+                return redirect(url_for("auth.login"))
+
             if role not in allowed_roles:
                 flash("Access denied.", "danger")
                 return redirect(url_for("main.dashboard"))

@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+<div>
+    <h2><b>Employees List</b></h2>
+    <p class="lead">You are now logged in.</p>
+<a href="{{ url_for('admin.add_employee') }}" class="btn btn-primary mb-3">Add Employee</a>
+<table class="table table-bordered">
+    <thead>
+        <tr><th>ID</th><th>FullName</th><th>Status</th><th>Hours</th><th>Rate</th><th>Total Salary</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.membership_type }}</td>
+            <td>{{ employee.hour}}</td>
+            <td>{{ employee.rate }}</td>
+            <td>{{ employee.takeHome }}</td>
+            <td>
+                <a href="{{ url_for('admin.edit_employee', id=employee.id) }}" class="btn btn-warning btn-sm">Edit</a>
+                <a href="{{ url_for('admin.delete_employee', id=employee.id) }}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+    <a href="{{ url_for('auth.logout') }}" class="btn btn-danger">
+        Logout
+    </a>
+</div>
+
+
+{% endblock %}
