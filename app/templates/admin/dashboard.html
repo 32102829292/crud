@@ -2,9 +2,10 @@
 {% block content %}
 <div>
     <h2><b>Employees List</b></h2>
-    <p class="lead">You are now logged in.</p>
-<a href="{{ url_for('admin.add_employee') }}" class="btn btn-primary mb-3">Add Employee</a>
+</div>
 <table class="table table-bordered">
+    <p class="lead">You are now logged in.</p>
+    <a href="{{ url_for('admin.add_employee') }}" class="btn btn-primary mb-3">Add Employee</a>
     <thead>
         <tr><th>ID</th><th>FullName</th><th>Status</th><th>Hours</th><th>Rate</th><th>Total Salary</th><th>Actions</th></tr>
     </thead>
@@ -25,11 +26,7 @@
         {% endfor %}
     </tbody>
 </table>
-
-    <a href="{{ url_for('auth.logout') }}" class="btn btn-danger">
-        Logout
-    </a>
-</div>
-
-
+<a href="{{ url_for('auth.logout') }}" class="btn btn-danger">
+    Logout
+</a>
 {% endblock %}

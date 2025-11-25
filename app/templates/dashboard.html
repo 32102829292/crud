@@ -3,11 +3,29 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mb-4">
     <h1 class="fw-bold">Welcome</h1>
-
     <a href="{{ url_for('auth.logout') }}" class="btn btn-danger">
         Logout
     </a>
 </div>
+<table class="table table-bordered">
+    <p class="lead">You are now logged in.</p>
+    <thead>
+        <tr><th>ID</th><th>FullName</th><th>Status</th><th>Hours</th><th>Rate</th><th>Total Salary</th><th>Actions</th></tr>
+    </thead>
+    <tbody>
+        {% for employee in employees %}
+        <tr>
+            <td>{{ employee.id }}</td>
+            <td>{{ employee.name }}</td>
+            <td>{{ employee.membership_type }}</td>
+            <td>{{ employee.hour}}</td>
+            <td>{{ employee.rate }}</td>
+            <td>{{ employee.takeHome }}</td>
+            <td>You can't add,edit or delete.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+    
 
-<p class="lead">You are now logged in.</p>
 {% endblock %}

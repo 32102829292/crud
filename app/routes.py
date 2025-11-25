@@ -74,7 +74,8 @@ def index():
 @bp.route("/dashboard")
 @login_required
 def dashboard():
-    return render_template("dashboard.html")
+    employee= Employee.query.all()
+    return render_template("dashboard.html",employees=employee)
 
 
 
