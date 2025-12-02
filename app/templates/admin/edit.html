@@ -8,16 +8,18 @@
     </div>
     <div class="mb-3">
         <label>Membership Type:</label>
-        <input type="text" name="membership_type" class="form-control" value = {{employees.membership_type}} required>
-
+        <select name="membership_type" class="form-control" value = {{employees.membership_type}} required>
+            <option value="Regular">Regular</option>
+            <option value="Part-Time">Part-Time</option>
+        </select>
     </div>
     <div class="mb-3">
         <label>Rate:</label>
-        <input type="number" name="rate" class="form-control" value = {{employees.rate}} required>
+        <input type="text" name="rate" class="form-control" value = {{employees.rate}} required>
     </div>
     <div class="mb-3">
         <label>Hours:</label>
-        <input type="number" name="hour" class="form-control" value = {{employees.hour}} required>
+        <input type="text" name="hour" class="form-control" value = {{employees.hour}} required>
     </div>
     <button type="submit" class="btn btn-success">Save</button>
     <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-danger btn-sm">Cancel</a>

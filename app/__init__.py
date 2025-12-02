@@ -23,11 +23,11 @@ def create_app():
 
     from .auth import bp as auth_bp
     from .routes import bp as main_bp
-    from .routes import admin as admin
+    from .cruds import admin as cruds_admin
 
 
     app.register_blueprint(auth_bp)
     app.register_blueprint(main_bp)
-    app.register_blueprint(admin)
+    app.register_blueprint(cruds_admin)
 
     return app
