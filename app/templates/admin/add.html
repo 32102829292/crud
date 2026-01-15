@@ -1,27 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Add New Employee</h2>
-<form method="POST">
-    <div class="mb-3">
-        <label>Employee's Full Name:</label>
-        <input type="text" name="name" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label>Membership Type:</label>
-        <select name="membership_type" class="form-control" required>
-            <option value="Regular">Regular</option>
-            <option value="Part-Time">Part-Time</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label>Rate:</label>
-        <input type="number" name="rate" class="form-control" required>
-    </div>
-    <div class="mb-3">
-        <label>Hours:</label>
-        <input type="number" name="hour" class="form-control" required>
-    </div>
-    <button type="submit" class="btn btn-success">Save</button>
-    <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-danger btn-sm">Cancel</a>
-</form>
+<div class="container mt-5">
+    <h2 class="mb-4">Add New Medicine</h2>
+    <form method="POST">
+        <div class="mb-3">
+            <label for="name" class="form-label">Medicine Name</label>
+            <input type="text" name="name" id="name" class="form-control" placeholder="Enter medicine name" required>
+        </div>
+        <div class="mb-3">
+            <label for="category" class="form-label">Category</label>
+            <select name="category" id="category" class="form-control" required>
+                <option value="">-- Select Category --</option>
+                <option value="Tablet">Tablet</option>
+                <option value="Syrup">Syrup</option>
+                <option value="Capsule">Capsule</option>
+                <option value="Injection">Injection</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="quantity" class="form-label">Quantity</label>
+            <input type="number" name="quantity" id="quantity" class="form-control" placeholder="Enter quantity" min="1" required>
+        </div>
+        <div class="mb-3">
+            <label for="price" class="form-label">Price per Unit</label>
+            <input type="number" name="price" id="price" class="form-control" placeholder="Enter price" step="0.01" min="0.01" required>
+        </div>
+        <button type="submit" class="btn btn-success">Save</button>
+        <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
 {% endblock %}

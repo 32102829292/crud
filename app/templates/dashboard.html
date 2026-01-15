@@ -1,31 +1,84 @@
 {% extends "base.html" %}
-
 {% block content %}
+
 <div class="d-flex justify-content-between align-items-center mb-4">
-    <h1 class="fw-bold">Welcome</h1> 
-<a href="{{ url_for('auth.logout') }}" class="btn btn-danger">
-        Logout
+    <h1 class="fw-bold text-primary">
+        <i class="fas fa-prescription-bottle-alt me-2"></i>Pharmacy Dashboard
+    </h1>
+    <a href="{{ url_for('auth.logout') }}" class="btn btn-danger shadow-sm">
+        <i class="fas fa-sign-out-alt me-1"></i> Logout
     </a>
-</div>    
-<table class="table table-bordered">
-    <p class="lead">You are now logged in.</p>
-    <thead>
-        <tr><th>ID</th><th>FullName</th><th>Status</th><th>Hours</th><th>Rate</th><th>Total Salary</th><th>Actions</th></tr>
-    </thead>
-    <tbody>
-        {% for employee in employees %}
-        <tr>
-            <td>{{ employee.id }}</td>
-            <td>{{ employee.name }}</td>
-            <td>{{ employee.membership_type }}</td>
-            <td>{{ employee.hour}}</td>
-            <td>{{ employee.rate }}</td>
-            <td>{{ employee.takeHome }}</td>
-            <td>You can't add,edit or delete.</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-    
+</div>
+
+{% if patient %}
+<div class="card shadow-lg rounded-4 mb-4 p-4">
+    <h4 class="fw-bold text-secondary mb-3"><i class="fas fa-user me-2"></i>Your Profile</h4>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between">
+            <span><strong>Name:</strong></span>
+            <span>{{ patient.profile.first_name }} {{ patient.profile.last_name }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span><strong>Phone:</strong></span>
+            <span>{{ patient.profile.phone or 'N/A' }}</span>
+        </li>
+        <li class="list-group-item d-flex justify-content-between">
+            <span><strong>Assigned Nurse:</strong></span>
+            <span>
+                {% if nurse %}
+                    {{ nurse.profile.first_name }} {{ nurse.profile.last_name }}
+                {% else %}
+                    No assigned nurse
+                {% endif %}
+            </span>
+        </li>
+    </ul>
+</div>
+
+<div class="card shadow-lg rounded-4 p-4">
+    <h4 class="fw-bold text-secondary mb-3"><i class="fas fa-pills me-2"></i>Your Assigned Medicines</h4>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered align-middle text-center">
+            <thead class="table-primary">
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Qty</th>
+                    <th>Unit Price</th>
+                    <th>Total Value</th>
+                    <th>Issued At</th>
+                    <th>Expires At</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for med in medicines %}
+                <tr>
+                    <td>{{ med.id }}</td>
+                    <td>{{ med.name }}</td>
+                    <td>{{ med.category }}</td>
+                    <td>{{ med.quantity }}</td>
+                    <td>₱{{ "%.2f"|format(med.price) }}</td>
+                    <td>₱{{ "%.2f"|format(med.total_value) }}</td>
+                    <td>{{ med.issued_at.strftime('%Y-%m-%d %H:%M') }}</td>
+                    <td>{% if med.expires_at %}{{ med.expires_at.strftime('%Y-%m-%d') }}{% else %}-{% endif %}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+            <tfoot>
+                <tr class="table-secondary">
+                    <th colspan="5" class="text-end">Total Cost:</th>
+                    <th colspan="3">₱{{ "%.2f"|format(total_cost) }}</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+</div>
+
+{% else %}
+<div class="alert alert-warning text-center shadow-sm">
+    No patient data available.
+</div>
+{% endif %}
 
 {% endblock %}

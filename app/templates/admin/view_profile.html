@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-5">
+
+    {% if profile %}
+    <div class="card shadow-lg rounded-4 border-0 p-0 mx-auto" style="max-width: 500px;">
+        <div class="card-header bg-primary text-white text-center py-3 rounded-top-4">
+            <h4 class="fw-bold mb-0">{{ profile.first_name }} {{ profile.last_name }}</h4>
+            <small class="text-light">{{ profile.user.role|capitalize }} Profile</small>
+        </div>
+        <div class="card-body p-4">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item d-flex justify-content-between">
+                    <span><strong>Email:</strong></span>
+                    <span>{{ profile.user.email }}</span>
+                </li>
+                {% if profile.user.role == 'nurse' %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span><strong>License No.:</strong></span>
+                    <span>{{ profile.user.license_no or 'N/A' }}</span>
+                </li>
+                {% elif profile.user.role == 'patient' %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span><strong>Patient No.:</strong></span>
+                    <span>{{ profile.user.patient_no or 'N/A' }}</span>
+                </li>
+                {% endif %}
+                <li class="list-group-item d-flex justify-content-between">
+                    <span><strong>Phone:</strong></span>
+                    <span>{{ profile.phone or 'N/A' }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span><strong>Role:</strong></span>
+                    <span>{{ profile.user.role|capitalize }}</span>
+                </li>
+                <li class="list-group-item d-flex justify-content-between">
+                    <span><strong>Last Updated:</strong></span>
+                    <span>{{ profile.updated_at.strftime('%Y-%m-%d') }}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="card-footer text-center bg-light rounded-bottom-4">
+            <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-primary btn-sm shadow-sm">
+                <i class="fas fa-arrow-left me-1"></i> Back to Dashboard
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div class="alert alert-warning text-center mt-4 shadow-sm">
+        Profile not found.
+    </div>
+    {% endif %}
+
+</div>
+{% endblock %}

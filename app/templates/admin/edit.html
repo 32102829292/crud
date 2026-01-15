@@ -1,27 +1,60 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Edit New Employee</h2>
-<form method="POST">
-    <div class="mb-3">
-        <label>Employee's Full Name:</label>
-        <input type="text" name="name" class="form-control" value = {{employees.name}} required>
+
+<div class="row justify-content-center mt-4">
+    <div class="col-md-6">
+        <div class="card shadow-sm rounded-4 border-0">
+            <div class="card-body p-4">
+                <h2 class="fw-bold mb-4 text-center"><i class="fas fa-pencil-alt me-2"></i>Edit Medicine</h2>
+
+                <form method="POST">
+                    <div class="mb-3">
+                        <label class="form-label">Medicine Name</label>
+                        <input type="text" name="name" class="form-control" value="{{ med.name }}" required>
+                    </div>
+                <div class="mb-3">
+                <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select name="category" class="form-control mb-2" required>
+                    <option value="" disabled {% if not med.category %}selected{% endif %}>Select Category</option>
+                    <option value="Antibiotic" {% if med.category == 'Antibiotic' %}selected{% endif %}>Antibiotic</option>
+                    <option value="Analgesic" {% if med.category == 'Analgesic' %}selected{% endif %}>Analgesic</option>
+                    <option value="Vitamin" {% if med.category == 'Vitamin' %}selected{% endif %}>Vitamin</option>
+                    <option value="Supplement" {% if med.category == 'Supplement' %}selected{% endif %}>Supplement</option>
+                    <option value="Other" {% if med.category == 'Other' %}selected{% endif %}>Other</option>
+                </select>
+            </div>
+
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Quantity</label>
+                        <input type="number" name="quantity" class="form-control" value="{{ med.quantity }}" min="0" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Price per Unit</label>
+                        <input type="number" name="price" class="form-control" value="{{ med.price }}" step="0.01" min="0" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label class="form-label">Expiration Date</label>
+                        <input type="date" name="expires_at" class="form-control" 
+                               value="{{ med.expires_at.strftime('%Y-%m-%d') if med.expires_at else '' }}">
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-4">
+                        <button type="submit" class="btn btn-success w-50">
+                            <i class="fas fa-save me-1"></i> Save
+                        </button>
+                        <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-danger w-45 text-center">
+                            <i class="fas fa-times me-1"></i> Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
-    <div class="mb-3">
-        <label>Membership Type:</label>
-        <select name="membership_type" class="form-control" value = {{employees.membership_type}} required>
-            <option value="Regular">Regular</option>
-            <option value="Part-Time">Part-Time</option>
-        </select>
-    </div>
-    <div class="mb-3">
-        <label>Rate:</label>
-        <input type="text" name="rate" class="form-control" value = {{employees.rate}} required>
-    </div>
-    <div class="mb-3">
-        <label>Hours:</label>
-        <input type="text" name="hour" class="form-control" value = {{employees.hour}} required>
-    </div>
-    <button type="submit" class="btn btn-success">Save</button>
-    <a href="{{ url_for('admin.admin_dashboard') }}" class="btn btn-danger btn-sm">Cancel</a>
-</form>
+</div>
+
 {% endblock %}

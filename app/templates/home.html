@@ -4,15 +4,13 @@
 <div class="text-center mt-5">
 
     <div class="mb-4">
-        <img src="{{ url_for('static', filename='logo.jpg') }}" 
-             alt="Logo" 
-             style="width: 120px; height: auto; border-radius: 50%;">
+        <i class="fas fa-prescription-bottle-alt fa-6x text-primary"></i>
     </div>
 
-    <h2 class="mb-4">Welcome to Our System</h2>
+    <h2 class="mb-4 fw-bold">Welcome to Medicine Inventory System</h2>
 
     <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg px-4">
-        Login
+        <i class="fas fa-sign-in-alt me-2"></i> Login
     </a>
 
 </div>

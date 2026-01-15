@@ -1,0 +1,111 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-5">
+        <div class="card shadow-sm rounded-4 border-0">
+            <div class="card-body p-4">
+
+                <div class="text-center mb-4">
+                    <i class="fas fa-hospital fa-4x text-primary"></i>
+                    <h3 class="mt-2 fw-bold">Clinic Login</h3>
+                    <p class="text-muted">Access Your Medical Portal</p>
+                </div>
+
+                <form method="POST">
+
+                    <div class="mb-3">
+                        <label for="role" class="form-label">Login As</label>
+                        <select class="form-select" id="role" name="role" required>
+                            <option value="">-- Select Role --</option>
+                            <option value="patient">Patient</option>
+                            <option value="nurse">Nurse</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text text-white">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                        <input 
+                            type="email" 
+                            class="form-control" 
+                            id="email" 
+                            name="email" 
+                            placeholder="Enter your email" 
+                            required>
+                    </div>
+
+                    <div class="mb-3" id="license-field" style="display: none;">
+                        <label for="license_no" class="form-label">License Number</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="license_no" 
+                            name="license_no" 
+                            placeholder="Enter your license number">
+                    </div>
+
+                    <div class="mb-3" id="patient-field" style="display: none;">
+                        <label for="patient_no" class="form-label">Patient Number</label>
+                        <input 
+                            type="text" 
+                            class="form-control" 
+                            id="patient_no" 
+                            name="patient_no" 
+                            placeholder="Enter your patient number">
+                    </div>
+
+                    <div class="mb-3 input-group">
+                        <span class="input-group-text text-white">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <input 
+                            type="password" 
+                            class="form-control" 
+                            id="password" 
+                            name="password" 
+                            placeholder="Enter your password" 
+                            required>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-3">
+                        <i class="fas fa-sign-in-alt me-2"></i> Login
+                    </button>
+
+                    <a href="{{ url_for('auth.register') }}" class="btn btn-outline-primary w-100">
+                        <i class="fas fa-user-plus me-2"></i> Create an Account
+                    </a>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('role').addEventListener('change', function() {
+    var role = this.value;
+    var licenseField = document.getElementById('license-field');
+    var patientField = document.getElementById('patient-field');
+    var licenseInput = document.getElementById('license_no');
+    var patientInput = document.getElementById('patient_no');
+
+    licenseField.style.display = 'none';
+    patientField.style.display = 'none';
+    licenseInput.removeAttribute('required');
+    patientInput.removeAttribute('required');
+
+    if (role === 'nurse') {
+        licenseField.style.display = 'block';
+        licenseInput.setAttribute('required', 'required');
+    }
+    
+    if (role === 'patient') {
+        patientField.style.display = 'block';
+        patientInput.setAttribute('required', 'required');
+    }
+});
+</script>
+{% endblock %}
